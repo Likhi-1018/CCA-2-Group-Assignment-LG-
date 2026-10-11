@@ -1,0 +1,55 @@
+# Name: [Your Full Name]
+# PRN: [Your PRN]
+
+from transformers import pipeline
+
+# Simple knowledge base (you can add more later)
+knowledge_base = {
+    "what is fintech": "FinTech means Financial Technology. It is the use of technology to improve financial services.",
+    "what is machine learning": "Machine Learning is a type of AI where computers learn from data without being explicitly programmed.",
+    "what is github": "GitHub is a platform where developers store, share and work together on code.",
+    "what is rag": "RAG stands for Retrieval-Augmented Generation. It first finds relevant information and then generates an answer."
+}
+
+# Load a simple question-answering model
+qa_pipeline = pipeline("question-answering")
+
+print("===== Simple Retrieval-Augmented Generation (RAG) =====")
+print("Ask me questions related to FinTech, Machine Learning, GitHub or RAG.")
+print("Type 'exit' to stop.\n")
+
+# Extra Rules (as required by the assignment)
+print("Extra Rules added:")
+print("1. If the question is not in the knowledge base, reply politely that I don't know.")
+print("2. Always try to give short and clear answers.")
+print("3. If the user asks the same question twice, remind them of the previous answer.")
+print("4. Never give financial advice.")
+print("5. Keep answers student-friendly and simple.\n")
+
+previous_questions = []
+
+while True:
+    question = input("Your question: ").lower().strip()
+    
+    if question == "exit":
+        print("Thank you! Program ended.")
+        break
+    
+    # Rule 3: Check if question was asked before
+    if question in previous_questions:
+        print("You already asked this. Here's the answer again:")
+    
+    # Simple retrieval
+    found = False
+    for key, answer in knowledge_base.items():
+        if key in question:
+            print("Answer:", answer)
+            found = True
+            break
+    
+    # Rule 1
+    if not found:
+        print("Sorry, I don't have information about that yet.")
+    
+    previous_questions.append(question)
+    print()
