@@ -1,0 +1,32 @@
+# Name: [Your Full Name]
+# PRN: [Your PRN]
+
+from transformers import pipeline
+
+# Load the sentiment analysis model from Hugging Face
+sentiment_analyzer = pipeline("sentiment-analysis")
+
+print("===== Hugging Face Sentiment Monitor =====")
+print("Type a sentence and I will tell you if it is Positive or Negative.")
+print("Type 'exit' to stop.\n")
+
+# Extra Problem Statements (as required by the assignment)
+print("Extra Problem Statements we can solve with this:")
+print("1. Analyze customer reviews of a bank app")
+print("2. Check sentiment of tweets about a new FinTech product")
+print("3. Monitor feedback from students about online classes")
+print("4. Analyze comments on a company’s Instagram post")
+print("5. Detect negative feedback in employee surveys\n")
+
+while True:
+    text = input("Enter a sentence: ")
+    
+    if text.lower() == "exit":
+        print("Thank you! Program ended.")
+        break
+    
+    result = sentiment_analyzer(text)[0]
+    label = result['label']
+    score = round(result['score'] * 100, 2)
+    
+    print(f"Sentiment: {label} ({score}% confidence)\n")
